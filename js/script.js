@@ -1,61 +1,46 @@
-/*
-Capturar los botones para usarlos (plantea usar un forEach) y hacer evento click
-Crear una función obtenerResultado 
-Crear una función mostrarResultado
-Crear una función actualizarPuntuacion  
-*/
-
+// opciones en un array
 const opciones = ["piedra", "papel", "tijera"];
+// variables puntos usuario
 let puntosUser = 0; 
+//variables puntos ordenador
 let puntosOrdenador = 0; 
-
-const btn = document.querySelectorAll(".boton-jugada"); 
-//console.log(btn);
-
-
-let resultadoUser = btn.forEach((element) => console.log(element.dataset.jugada));
-console.log("este es el resultado" + resultadoUser);
-/* 
-
-btn.addEventListener("click", function(){
-    if (btn.dataset.jugada === "piedra"){
-        resultadoUser = "piedra";  
-    } else if (btn.dataset.jugada === "papel"){
-        resultadoUser = "papel";  
-    }else{
-        resultadoUser = "tijera";   
-    }
-});
-
-console.log(resultadoUser);
-
-
-/*if () {
-    puntosUser ++
-} else { console.log("empate")}*/
+//capturar los botones para usarlos (plantea usar forEach) y hacer evento click
+const botones = document.querySelectorAll(".boton-jugada"); 
 
 
 
+botones.forEach(function(btn){
+    btn.addEventListener("click", function(){
+        let eleccionUser = this.dataset.jugada; 
+        let eleccionCompu = opciones[Math.floor(Math.random()*3)];
+        let resultado = obtenerResultado(eleccionUser, eleccionCompu);
 
+    })})
 
-/*
-
-
+//capturar resultados
 let resultados = document.getElementById("resultados");
-resultados.textContent = "Hola";
-console.log(resultados.textContent);
-
-let contadorUsuario = document.getElementById("contador-usuario");
+//capturar contador-usuario
+let contadorUser = document.getElementById("contador-usuario");
+//capturar contador-ordenador
 let contadorOrdenador = document.getElementById("contador-ordenador");
 
 
-function getRandom() {
-    return Math.floor(Math.random()*3);
-  }
+function obtenerResultado (eleccionUser, eleccionCompu) {
+    if (eleccionUser === eleccionCompu){
+        resultados.innerHTML = "¡Es un empate!";
+    } else if (
+        (eleccionUser ==="papel" && eleccionCompu === "piedra") ||
+        (eleccionUser ==="tijera" && eleccionCompu === "papel") ||
+        (eleccionUser ==="piedra" && eleccionCompu === "tijera") 
+    ) {
+        resultados.innerHTML = `¡Ganaste! La compu eligió ${eleccionCompu} y tú elegiste ${eleccionUser}`;
+        puntosUser++;
+        contadorUser.innerHTML = `Tus puntos: ${puntosUser}`;
 
-let resultadoOrdenador = console.log(opciones[getRandom()]);
-console.log(getRandom());
+    } else {
+        resultados.innerHTML = `¡Perdiste! La compu eligió ${eleccionCompu} y tú elegiste ${eleccionUser}`
+        puntosOrdenador++;
+        contadorOrdenador.innerHTML = `Puntos de la máquina: ${puntosOrdenador}`;
 
-*/
-
+     }}
 
